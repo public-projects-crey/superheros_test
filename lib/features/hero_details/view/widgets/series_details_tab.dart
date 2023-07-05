@@ -9,23 +9,27 @@ class _SeriesDetailsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
-      color: Colors.red,
       child: Column(
         children: [
-          tittleText("# Available"),
-          description(series.available.toString()),
-          Divider(),
-          tittleText("Items"),
+          const TitleTextWidget("# Available"),
+          DescriptionWidget(series.available.toString()),
+          const Divider(),
+          const TitleTextWidget("Items"),
           Expanded(
-            child: ListView.builder(
-              itemCount: series.items.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: description(series.items[index].name),
-                );
-              },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              color: Theme.of(context).primaryColor.withOpacity(0.2),
+              child: ListView.builder(
+                itemCount: series.items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title:
+                        IndividualDescriptionWidget(series.items[index].name),
+                  );
+                },
+              ),
             ),
           ),
         ],

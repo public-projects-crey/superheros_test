@@ -20,7 +20,10 @@ class _CardCharacter extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Theme.of(context).cardColor.withOpacity(0.5),
-            border: Border.all(width: 1)),
+            border: Border.all(
+              width: 2,
+              color: Theme.of(context).primaryColor,
+            )),
         child: Column(
           children: [
             _ImageWidget(urlImage: urlImage),
@@ -79,38 +82,18 @@ class _ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Image.network(
-        urlImage,
-        errorBuilder: (context, error, stackTrace) {
-          return Hero(
-            tag: urlImage,
-            child: Image.network(
+    return Hero(
+      tag: urlImage,
+      child: CachedNetworkImage(
+        imageUrl: urlImage,
+        placeholder: (context, url) =>
+            Container(height: 400, child: Center(child: const LoadingWidget())),
+        errorWidget: (context, url, error) => CachedNetworkImage(
+          imageUrl:
               "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
-              errorBuilder: (context, error, stackTrace) {
-                return Center(
-                  child: Text("No image available"),
-                );
-              },
-              loadingBuilder: (BuildContext context, Widget child,
-                  ImageChunkEvent? loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  width: double.infinity,
-                  height: 100,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+          placeholder: (context, url) => new CircularProgressIndicator(),
+          errorWidget: (context, url, error) => new Icon(Icons.error),
+        ),
       ),
     );
   }

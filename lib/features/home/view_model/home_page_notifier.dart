@@ -21,8 +21,7 @@ class CharactersNotifier
 
       state = AsyncValue.data(listCharacters);
     } catch (error) {
-      state = AsyncValue.error(error, StackTrace.current);
-      throw Future.error(error);
+      state = AsyncValue.error("Error getting characters", StackTrace.current);
     }
   }
 }

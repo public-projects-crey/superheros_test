@@ -9,23 +9,27 @@ class _StoriesDetailsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: double.infinity,
-      color: Colors.green,
       child: Column(
         children: [
-          tittleText("# Available"),
-          description(stories.available.toString()),
-          Divider(),
-          tittleText("Items"),
+          const TitleTextWidget("# Available"),
+          DescriptionWidget(stories.available.toString()),
+          const Divider(),
+          const TitleTextWidget("Items"),
           Expanded(
-            child: ListView.builder(
-              itemCount: stories.items.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: description(stories.items[index].name),
-                );
-              },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              color: Theme.of(context).primaryColor.withOpacity(0.2),
+              child: ListView.builder(
+                itemCount: stories.items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title:
+                        IndividualDescriptionWidget(stories.items[index].name),
+                  );
+                },
+              ),
             ),
           ),
         ],

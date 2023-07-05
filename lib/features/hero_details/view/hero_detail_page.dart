@@ -9,6 +9,7 @@ part 'widgets/stories_details_tab.dart';
 part 'widgets/series_details_tab.dart';
 part 'widgets/comics_details_tab.dart';
 part 'widgets/character_details_tab.dart';
+part 'widgets/events_details_tab.dart';
 
 class HeroDetailPage extends StatefulWidget {
   CharacterModel character;
@@ -27,7 +28,7 @@ class _HeroDetailPageState extends State<HeroDetailPage>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 4, initialIndex: 0, vsync: this);
+    tabController = TabController(length: 5, initialIndex: 0, vsync: this);
   }
 
   @override
@@ -37,11 +38,13 @@ class _HeroDetailPageState extends State<HeroDetailPage>
         title: Text(widget.character.name),
         bottom: TabBar(
           controller: tabController,
+          isScrollable: true,
           tabs: const [
-            Text("Resumen"),
+            Text("Hero"),
             Text("Comics"),
             Text("Series"),
             Text("Stories"),
+            Text("Events"),
           ],
         ),
       ),
@@ -53,6 +56,7 @@ class _HeroDetailPageState extends State<HeroDetailPage>
           _ComicsDetailsTab(comics: widget.character.comics),
           _SeriesDetailsTab(series: widget.character.series),
           _StoriesDetailsTab(stories: widget.character.stories),
+          _EventsDetailsTab(stories: widget.character.events),
         ],
       )),
     );

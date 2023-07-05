@@ -11,7 +11,6 @@ class _CharacterDetailsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
-      color: Colors.green,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -23,11 +22,11 @@ class _CharacterDetailsTab extends StatelessWidget {
                   "." +
                   character.thumbnail.extension),
             ),
-            tittleText("Description"),
-            description(character.description),
-            Divider(),
-            tittleText("Modified"),
-            description(character.modified),
+            const TitleTextWidget("Description"),
+            DescriptionWidget(character.description),
+            const Divider(),
+            const TitleTextWidget("Modified"),
+            DescriptionWidget(character.modified),
           ],
         ),
       ),

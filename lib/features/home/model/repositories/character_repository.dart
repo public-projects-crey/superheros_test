@@ -20,7 +20,7 @@ class CharacterRepositoryAPI extends CharacterRepository {
     final dio = Dio();
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
 
-    String hashMD5 = _generateMD5(timestamp + PRIVATEKEY /* + PUBLICKEY */);
+    String hashMD5 = _generateMD5(timestamp + PRIVATEKEY + PUBLICKEY);
     String endpointfull =
         "$endpoint?apikey=$PUBLICKEY&hash=$hashMD5&ts=$timestamp";
 
@@ -36,8 +36,8 @@ class CharacterRepositoryAPI extends CharacterRepository {
         characters.add(character);
       }
       return characters;
-    } catch (e) {
-      throw Future.error("error: $e");
+    } on DioException catch (error) {
+      throw Future.error(error.message ?? "Error getting characters");
     }
   }
 
