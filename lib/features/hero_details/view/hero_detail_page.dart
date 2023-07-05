@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HeroDetailPage extends ConsumerWidget {
-  const HeroDetailPage({super.key});
+  int index;
+  HeroDetailPage({required this.index, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return Scaffold(
+      body: Center(
+        child: Text("details $index"),
+      ),
+    );
   }
 }

@@ -11,7 +11,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ),
     GoRoute(
       path: '/hero_details',
-      builder: (context, state) => const HeroDetailPage(),
+      builder: (context, state) => HeroDetailPage(index: state.extra as int),
     ),
   ]);
 });
