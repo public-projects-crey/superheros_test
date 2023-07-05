@@ -16,39 +16,26 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /* String urlImage = "";
-    String name = "";
-
-    // ignore: unused_local_variable
-    final data = jsondata["data"]["results"] as List;
-    List<CharacterModel> characters = [];
-    for (int i = 0; i < data.length; i++) {
-      CharacterModel character = CharacterModel.fromJson(data[i]);
-      characters.add(character);
-    }
-// */
-
     final characters = ref.watch(charactersProvider);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Characters"),
         ),
         body: characters.when(
           data: (data) {
-            return Container(
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _CardCharacter(
-                    name: data[index].name,
-                    urlImage:
-                        "${data[index].thumbnail.path}.${data[index].thumbnail.extension}",
-                    onTap: () {
-                      context.push("/hero_details", extra: data[index]);
-                    },
-                  );
-                },
-              ),
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _CardCharacter(
+                  name: data[index].name,
+                  urlImage:
+                      "${data[index].thumbnail.path}.${data[index].thumbnail.extension}",
+                  onTap: () {
+                    context.push("/hero_details", extra: data[index]);
+                  },
+                );
+              },
             );
           },
           error: (error, stackTrace) {
@@ -80,9 +67,7 @@ class HomePage extends ConsumerWidget {
                             .read(charactersProvider.notifier)
                             .getAllCharacters();
                       },
-                      icon: const Icon(
-                        Icons.refresh,
-                      ),
+                      icon: const Icon(Icons.refresh),
                     ),
                   )
                 ]);

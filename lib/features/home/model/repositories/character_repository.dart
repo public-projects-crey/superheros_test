@@ -13,7 +13,6 @@ class CharacterRepositoryAPI extends CharacterRepository {
   /*  String endpointfull =
       "https://gateway.marvel.com:443/v1/public/characters?apikey=fea4ddbf370376865724c2b03db5ffef&hash=c3de3454e8dc6486f0e30e8f937745fe&ts=1677784856";
  */
-  String endpoint = "https://gateway.marvel.com:443/v1/public/characters";
 
   @override
   Future<List<CharacterModel>> getAllCharacters() async {
@@ -22,12 +21,10 @@ class CharacterRepositoryAPI extends CharacterRepository {
 
     String hashMD5 = _generateMD5(timestamp + PRIVATEKEY + PUBLICKEY);
     String endpointfull =
-        "$endpoint?apikey=$PUBLICKEY&hash=$hashMD5&ts=$timestamp";
+        "$ENDPOINT?apikey=$PUBLICKEY&hash=$hashMD5&ts=$timestamp";
 
     try {
-      final response =
-          // await dio.get(endpoint+apikey);
-          await dio.get(endpointfull);
+      final response = await dio.get(endpointfull);
 
       final data = response.data["data"]["results"] as List;
       List<CharacterModel> characters = [];
