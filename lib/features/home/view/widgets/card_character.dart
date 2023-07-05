@@ -18,8 +18,9 @@ class _CardCharacter extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
+            borderRadius: BorderRadius.circular(12),
+            color: Theme.of(context).cardColor.withOpacity(0.5),
+            border: Border.all(width: 1)),
         child: Column(
           children: [
             _ImageWidget(urlImage: urlImage),

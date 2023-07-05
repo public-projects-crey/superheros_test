@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constant/my_colors.dart';
+
 const seedColor = Colors.red;
 
 class AppTheme {
@@ -14,5 +16,6 @@ class AppTheme {
         listTileTheme: const ListTileThemeData(
           iconColor: seedColor,
         ),
+        cardColor: isDarkmode ? MyColors.maroon : MyColors.yellow2,
       );
 }
