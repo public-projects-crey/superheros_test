@@ -85,18 +85,29 @@ class _ImageWidget extends StatelessWidget {
           return Hero(
             tag: urlImage,
             child: Image.network(
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
-                errorBuilder: (context, error, stackTrace) {
-              return Center(
-                child: Text("No image available"),
-              );
-            }, loadingBuilder: (
-              BuildContext context,
-              Widget child,
-              ImageChunkEvent? loadingProgress,
-            ) {
-              return Center(child: CircularProgressIndicator());
-            }),
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+              errorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Text("No image available"),
+                );
+              },
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),

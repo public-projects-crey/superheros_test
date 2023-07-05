@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multiple_test/features/home/model/character_model.dart';
-import 'package:multiple_test/features/home/model/items_model.dart';
 
+import '../../home/model/models/character_model.dart';
+import '../../home/model/models/items_model.dart';
 import '../../view/global_widgets/text_widgets.dart';
 
 part 'widgets/stories_details_tab.dart';

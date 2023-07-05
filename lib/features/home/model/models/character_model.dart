@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:multiple_test/features/home/model/thumbail_model.dart';
-import 'package:multiple_test/features/home/model/url_model.dart';
+import 'package:multiple_test/features/home/model/models/thumbail_model.dart';
+import 'package:multiple_test/features/home/model/models/url_model.dart';
 
 import 'items_model.dart';
 
