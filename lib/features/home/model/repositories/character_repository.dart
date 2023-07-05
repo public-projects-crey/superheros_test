@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import '../../../../config/constant/api_key.dart';
 
-import '../../../../config/constant/env.dart';
 import '../models/character_model.dart';
 import 'package:dio/dio.dart';
 
