@@ -1,75 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:multiple_test/features/home/model/character_model.dart';
+import 'package:multiple_test/features/home/model/items_model.dart';
 
-class HeroDetailPage extends ConsumerWidget {
-  int index;
-  HeroDetailPage({required this.index, super.key});
+import '../../view/global_widgets/text_widgets.dart';
+
+part 'widgets/stories_details_tab.dart';
+part 'widgets/series_details_tab.dart';
+part 'widgets/comics_details_tab.dart';
+part 'widgets/character_details_tab.dart';
+
+class HeroDetailPage extends StatefulWidget {
+  CharacterModel character;
+  HeroDetailPage({
+    required this.character,
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  State<HeroDetailPage> createState() => _HeroDetailPageState();
+}
+
+class _HeroDetailPageState extends State<HeroDetailPage>
+    with TickerProviderStateMixin {
+  late TabController tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 4, initialIndex: 0, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: PageView(
-          children: [
-            _CharactersDetails(),
-            _ComicsDetails(),
-            _SeriesDetails(),
-            _StoriesDetails(),
+      appBar: AppBar(
+        title: Text(widget.character.name),
+        bottom: TabBar(
+          controller: tabController,
+          tabs: const [
+            Text("Resumen"),
+            Text("Comics"),
+            Text("Series"),
+            Text("Stories"),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _StoriesDetails extends StatelessWidget {
-  const _StoriesDetails({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.amber,
-    );
-  }
-}
-
-class _SeriesDetails extends StatelessWidget {
-  const _SeriesDetails({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red,
-    );
-  }
-}
-
-class _ComicsDetails extends StatelessWidget {
-  const _ComicsDetails({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-    );
-  }
-}
-
-class _CharactersDetails extends StatelessWidget {
-  const _CharactersDetails({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green,
+      body: Center(
+          child: TabBarView(
+        controller: tabController,
+        children: [
+          _CharacterDetailsTab(character: widget.character),
+          _ComicsDetailsTab(comics: widget.character.comics),
+          _SeriesDetailsTab(series: widget.character.series),
+          _StoriesDetailsTab(stories: widget.character.stories),
+        ],
+      )),
     );
   }
 }

@@ -108,17 +108,14 @@ class __$$_ThumbailModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ThumbailModel implements _ThumbailModel {
-  const _$_ThumbailModel(
-      {this.path = "no founded", this.extension = "No founded"});
+  const _$_ThumbailModel({required this.path, required this.extension});
 
   factory _$_ThumbailModel.fromJson(Map<String, dynamic> json) =>
       _$$_ThumbailModelFromJson(json);
 
   @override
-  @JsonKey()
   final String path;
   @override
-  @JsonKey()
   final String extension;
 
   @override
@@ -155,8 +152,9 @@ class _$_ThumbailModel implements _ThumbailModel {
 }
 
 abstract class _ThumbailModel implements ThumbailModel {
-  const factory _ThumbailModel({final String path, final String extension}) =
-      _$_ThumbailModel;
+  const factory _ThumbailModel(
+      {required final String path,
+      required final String extension}) = _$_ThumbailModel;
 
   factory _ThumbailModel.fromJson(Map<String, dynamic> json) =
       _$_ThumbailModel.fromJson;

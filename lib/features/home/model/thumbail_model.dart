@@ -6,8 +6,8 @@ part 'thumbail_model.g.dart';
 @freezed
 class ThumbailModel with _$ThumbailModel {
   const factory ThumbailModel({
-    @Default("no founded") String path,
-    @Default("No founded") String extension,
+    required String path,
+    required String extension,
   }) = _ThumbailModel;
 
   factory ThumbailModel.fromJson(Map<String, dynamic> json) =>

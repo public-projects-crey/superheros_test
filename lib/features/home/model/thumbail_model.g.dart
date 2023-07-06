@@ -8,8 +8,8 @@ part of 'thumbail_model.dart';
 
 _$_ThumbailModel _$$_ThumbailModelFromJson(Map<String, dynamic> json) =>
     _$_ThumbailModel(
-      path: json['path'] as String? ?? "no founded",
-      extension: json['extension'] as String? ?? "No founded",
+      path: json['path'] as String,
+      extension: json['extension'] as String,
     );
 
 Map<String, dynamic> _$$_ThumbailModelToJson(_$_ThumbailModel instance) =>

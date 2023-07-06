@@ -3,36 +3,39 @@ part of '../home_page.dart';
 class _CardCharacter extends StatelessWidget {
   String urlImage;
   String name;
-  int index;
+  Function onTap;
   _CardCharacter(
       {super.key,
       required this.urlImage,
       required this.name,
-      required this.index});
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          _ImageWidget(urlImage: urlImage),
-          _NameWidget(name: name),
-          _aboutWidget(index: index),
-        ],
+    return InkWell(
+      onTap: () => onTap(),
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            _ImageWidget(urlImage: urlImage),
+            _NameWidget(name: name),
+            _aboutWidget(onTap: onTap),
+          ],
+        ),
       ),
     );
   }
 }
 
 class _aboutWidget extends StatelessWidget {
-  final int index;
+  final Function onTap;
   const _aboutWidget({
-    required this.index,
+    required this.onTap,
     super.key,
   });
 
@@ -41,9 +44,7 @@ class _aboutWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       child: OutlinedButton(
-        onPressed: () {
-          context.push("/hero_details", extra: index);
-        },
+        onPressed: () => onTap(),
         child: const Text("about character"),
       ),
     );
@@ -81,13 +82,21 @@ class _ImageWidget extends StatelessWidget {
       child: Image.network(
         urlImage,
         errorBuilder: (context, error, stackTrace) {
-          return Image.network(
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
-            errorBuilder: (context, error, stackTrace) {
-              return const Center(
+          return Hero(
+            tag: urlImage,
+            child: Image.network(
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png",
+                errorBuilder: (context, error, stackTrace) {
+              return Center(
                 child: Text("No image available"),
               );
-            },
+            }, loadingBuilder: (
+              BuildContext context,
+              Widget child,
+              ImageChunkEvent? loadingProgress,
+            ) {
+              return Center(child: CircularProgressIndicator());
+            }),
           );
         },
       ),
